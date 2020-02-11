@@ -1,6 +1,6 @@
 # example from https://github.com/ktbyers/netmiko/blob/develop/examples/use_cases/case16_concurrency/threads_netmiko.py
 
-import threading
+import multiprocessing
 from netmiko import ConnectHandler
 from ntc_templates.parse import parse_output
 from secret_devices import device_list as devices
@@ -10,25 +10,19 @@ def show_version(a_device):
     remote_conn = ConnectHandler(**a_device)
     sh_ver = remote_conn.send_command_expect("show version")
     parse_ver = parse_output(platform='cisco_ios', command='show version', data=sh_ver)
-    print()
-    print(parse_ver[0]['hostname'])
-    print(parse_ver[0]['running_image'])
+    print(parse_ver[0]['hostname'], parse_ver[0]['running_image'])
+    # try appending a list to print
 
 
 def main():
     """
     Use threads and Netmiko to connect to each of the devices. Execute
-    'show version' on each device. Record the amount of time required to do this.
+    'show version' on each device.
     """
-    for a_device in devices:
-        my_thread = threading.Thread(target=show_version, args=(a_device,))
-        my_thread.start()
+    
+    pool = multiprocessing.Pool()
+    pool.map(show_version, devices)
 
-    main_thread = threading.current_thread()
-    for some_thread in threading.enumerate():
-        if some_thread != main_thread:
-            print(some_thread)
-            some_thread.join()
 
 
 if __name__ == "__main__":
