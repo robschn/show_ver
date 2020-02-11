@@ -1,7 +1,6 @@
 # example from https://github.com/ktbyers/netmiko/blob/develop/examples/use_cases/case16_concurrency/threads_netmiko.py
 
 import threading
-from datetime import datetime
 from netmiko import ConnectHandler
 from ntc_templates.parse import parse_output
 from secret_devices import device_list as devices
@@ -11,7 +10,9 @@ def show_version(a_device):
     remote_conn = ConnectHandler(**a_device)
     sh_ver = remote_conn.send_command_expect("show version")
     parse_ver = parse_output(platform='cisco_ios', command='show version', data=sh_ver)
-    print(parse_ver)
+    print()
+    print(parse_ver[0]['hostname'])
+    print(parse_ver[0]['running_image'])
 
 
 def main():
@@ -19,19 +20,15 @@ def main():
     Use threads and Netmiko to connect to each of the devices. Execute
     'show version' on each device. Record the amount of time required to do this.
     """
-    start_time = datetime.now()
-
     for a_device in devices:
         my_thread = threading.Thread(target=show_version, args=(a_device,))
         my_thread.start()
 
-    main_thread = threading.currentThread()
+    main_thread = threading.current_thread()
     for some_thread in threading.enumerate():
         if some_thread != main_thread:
             print(some_thread)
             some_thread.join()
-
-    print("\nElapsed time: " + str(datetime.now() - start_time))
 
 
 if __name__ == "__main__":
