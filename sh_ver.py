@@ -5,13 +5,15 @@ from netmiko import ConnectHandler
 from ntc_templates.parse import parse_output
 from my_devices import device_list as devices
 
+
 def show_version(a_device):
     """Execute show version command using Netmiko"""
     remote_conn = ConnectHandler(**a_device)
     sh_ver = remote_conn.send_command_expect("show version")
-    parse_ver = parse_output(platform='cisco_ios', command='show version', data=sh_ver)
+
+    parse_ver = parse_output(platform='cisco_ios',
+                             command='show version', data=sh_ver)
     print(parse_ver[0]['hostname'], parse_ver[0]['running_image'])
-    # try appending a list to print
 
 
 def main():
@@ -19,10 +21,9 @@ def main():
     Use threads and Netmiko to connect to each of the devices. Execute
     'show version' on each device.
     """
-    
+
     pool = multiprocessing.Pool()
     pool.map(show_version, devices)
-
 
 
 if __name__ == "__main__":
