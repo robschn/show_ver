@@ -20,8 +20,8 @@ def show_version(a_device):
 
 def main():
     """
-    Uses multiprocessing and Netmiko to connect to each of the devices. Execute
-    'show version' on each device.
+    Uses multiprocessing and Netmiko to connect to 
+    each of the devices then execute 'show version'.
     """
     pool = multiprocessing.Pool()
     pool.map(show_version, device_list)
