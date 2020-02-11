@@ -7,7 +7,10 @@ from my_devices import device_list as devices
 
 
 def show_version(a_device):
-    """Execute show version command using Netmiko"""
+    """
+    Execute show version command using Netmiko
+    then parse the output with ntc template
+    """
     remote_conn = ConnectHandler(**a_device)
     sh_ver = remote_conn.send_command_expect("show version")
 
@@ -18,7 +21,7 @@ def show_version(a_device):
 
 def main():
     """
-    Use threads and Netmiko to connect to each of the devices. Execute
+    Uses multiprocessing and Netmiko to connect to each of the devices. Execute
     'show version' on each device.
     """
 
