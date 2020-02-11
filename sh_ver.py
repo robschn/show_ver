@@ -3,7 +3,7 @@
 import multiprocessing
 from netmiko import ConnectHandler
 from ntc_templates.parse import parse_output
-from secret_devices import device_list as devices
+from my_devices import device_list as devices
 
 def show_version(a_device):
     """Execute show version command using Netmiko"""
