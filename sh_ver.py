@@ -4,12 +4,14 @@ import threading
 from datetime import datetime
 from netmiko import ConnectHandler
 from ntc_templates.parse import parse_output
-from my_devices import device_list as devices
+from secret_devices import device_list as devices
 
 def show_version(a_device):
     """Execute show version command using Netmiko"""
     remote_conn = ConnectHandler(**a_device)
-    print(remote_conn.send_command_expect("show version"))
+    sh_ver = remote_conn.send_command_expect("show version")
+    parse_ver = parse_output(platform='cisco_ios', command='show version', data=sh_ver)
+    print(parse_ver)
 
 
 def main():
