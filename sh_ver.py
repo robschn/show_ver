@@ -3,7 +3,7 @@
 import multiprocessing
 from netmiko import ConnectHandler
 from ntc_templates.parse import parse_output
-from my_devices import device_list as devices
+from secret_devices import device_list as devices
 
 
 def show_version(a_device):
@@ -24,9 +24,8 @@ def main():
     Uses multiprocessing and Netmiko to connect to each of the devices. Execute
     'show version' on each device.
     """
-
-    pool = multiprocessing.Pool()
-    pool.map(show_version, devices)
+    for i in devices:
+        multiprocessing.Pool(show_version, initargs=i)
 
 
 if __name__ == "__main__":
