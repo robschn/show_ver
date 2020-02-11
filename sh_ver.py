@@ -1,4 +1,3 @@
-# example from https://github.com/ktbyers/netmiko/blob/develop/examples/use_cases/case16_concurrency/threads_netmiko.py
 
 import multiprocessing
 from netmiko import ConnectHandler
