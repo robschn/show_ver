@@ -7,7 +7,7 @@ from my_devices import device_list as devices
 
 def show_version(a_device):
     """Execute show version command using Netmiko"""
-    remote_con = ConnectHandler(**a_device)
+    remote_conn = ConnectHandler(**a_device)
     print()
     print("#" * 80)
     print(remote_conn.send_command_expect("show version"))
