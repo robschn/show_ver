@@ -16,7 +16,7 @@ def show_version(a_device):
 
     parse_ver = parse_output(platform='cisco_ios',
                              command='show version', data=sh_ver)
-    print(parse_ver[0]['hostname'], parse_ver[0]['running_image'])
+    print(parse_ver[0]['hostname'], parse_ver[0]['version'])
 
 
 def main():
