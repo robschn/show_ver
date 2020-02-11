@@ -3,16 +3,13 @@
 import threading
 from datetime import datetime
 from netmiko import ConnectHandler
+from ntc_templates.parse import parse_output
 from my_devices import device_list as devices
 
 def show_version(a_device):
     """Execute show version command using Netmiko"""
     remote_conn = ConnectHandler(**a_device)
-    print()
-    print("#" * 80)
     print(remote_conn.send_command_expect("show version"))
-    print("#" * 80)
-    print()
 
 
 def main():
