@@ -9,6 +9,15 @@ pip install -r requirements.txt
 
 ### Usage
 1. Open the my_devices.py and input the IPs of the switches you want to connect to.
+```
+device_ips = {
+    "192.168.1.10",
+    "192.168.1.8",
+    "192.168.1.7",
+    "192.168.1.3",
+    "192.168.1.6"
+}
+```
 2. Run the script
 ```
 python show_ver.py
