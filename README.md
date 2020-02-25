@@ -2,7 +2,7 @@
 Script to grab the version number of multiple switches by leveraging multiprocessing.
 
 ### Install
-- Install required packages using the requirements.txt
+Install required packages using the requirements.txt
 ```
 pip install -r requirements.txt
 ```
